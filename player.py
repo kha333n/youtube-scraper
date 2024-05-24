@@ -29,9 +29,9 @@ def open_and_play_videos(links_file, played_file):
 
     for link in links:
 
-        options = webdriver.EdgeOptions()
-        # options.add_argument("--mute")  # Mute videos by default
-        driver = webdriver.Edge(options=options)  # Replace with your preferred WebDriver
+        options = webdriver.ChromeOptions()
+        options.add_argument('--ignore-certificate-errors')
+        driver = webdriver.Chrome(options=options)
 
         driver.get(link.strip())  # Remove leading/trailing whitespace
 
