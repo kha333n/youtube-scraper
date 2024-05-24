@@ -7,12 +7,14 @@ import time
 
 from selenium.webdriver.support.wait import WebDriverWait
 
+
 # Function to save played video link and duration to a file
-def log_played_video(link, duration):
-    with open("played.txt", "a") as file:
+def log_played_video(link, duration, file="played.txt"):
+    with open(file, "a") as file:
         file.write(f"{link} - {duration} seconds\n")
 
-def open_and_play_videos(links_file):
+
+def open_and_play_videos(links_file, played_file):
     """
     Opens links from a text file one by one, plays videos (assuming they are within elements with the specified class),
     and waits for each video to finish before moving to the next link.
@@ -73,7 +75,7 @@ def open_and_play_videos(links_file):
             end_time = time.time()
             duration_seconds = end_time - start_time
             duration_minutes = duration_seconds / 60
-            log_played_video(link.strip(), duration_minutes)
+            log_played_video(link.strip(), duration_minutes, played_file)
 
             driver.quit()
             time.sleep(10)  # Optional delay between videos (adjust as needed)
@@ -82,6 +84,9 @@ def open_and_play_videos(links_file):
 
 
 # Example usage:
-links_file = "video_links_talha.txt"
+links_talha = "video_links_talha.txt"
+links_mubashir = "video_links_mubashir.txt"
+
 if __name__ == "__main__":
-    open_and_play_videos(links_file)
+    open_and_play_videos(links_talha, "played_talha.txt")
+    open_and_play_videos(links_mubashir, "played_mubashir.txt")
