@@ -7,8 +7,10 @@ import time
 
 from selenium.webdriver.support.wait import WebDriverWait
 
+cookiePopup = True  # Set to True if the cookie popup appears
 
-# Function to save played video link and duration to a file
+
+# Function to save a played video link and duration to a file
 def log_played_video(link, duration, file="played.txt"):
     with open(file, "a") as file:
         file.write(f"{link} - {duration} seconds\n")
@@ -43,6 +45,22 @@ def open_and_play_videos(links_file, played_file):
 
         print(f"Opening video: {link.strip()}")
         try:
+
+            # Handle the cookie popup if necessary
+            if cookiePopup:
+                try:
+                    time.sleep(2)
+                    # Click on 'Accept all' button
+                    buttons = driver.find_elements(By.CLASS_NAME, 'yt-spec-button-shape-next')
+                    for button in buttons:
+                        if button.get_attribute(
+                                'aria-label') == 'Accept the use of cookies and other data for the purposes described':
+                            button.click()
+                            break
+                    print("Clicked on 'Accept all' button.")
+                except Exception as e:
+                    print(f"An error occurred while handling cookie popup: {e}")
+
             # Wait for video player to become clickable
             WebDriverWait(driver, 2).until(
                 EC.element_to_be_clickable((By.CLASS_NAME, 'ytp-play-button'))
@@ -77,8 +95,6 @@ def open_and_play_videos(links_file, played_file):
             duration_minutes = duration_seconds / 60
             log_played_video(link.strip(), duration_minutes, played_file)
 
-            driver.quit()
-            time.sleep(10)  # Optional delay between videos (adjust as needed)
             driver.quit()
             time.sleep(10)  # Optional delay between videos (adjust as needed)
 
