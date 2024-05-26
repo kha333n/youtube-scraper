@@ -71,6 +71,21 @@ def main():
     else:
         print("No video links found.")
 
+    # YouTube channel URL
+    channel_url = "https://www.youtube.com/@Snooker00/videos"
+
+    # Scrape video links from the channel page
+    video_urls = scrape_youtube_channel_videos(channel_url)
+
+    # Write video URLs to a text file
+    if video_urls:
+        with open("video_links_snooker.txt", "w") as file:
+            for url in video_urls:
+                file.write(url + "\n")
+        print("Video links saved to video_links_snooker.txt")
+    else:
+        print("No video links found.")
+
 
 # Entry point of the script
 if __name__ == "__main__":

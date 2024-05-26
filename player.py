@@ -102,7 +102,9 @@ def open_and_play_videos(links_file, played_file):
 # Example usage:
 links_talha = "video_links_talha.txt"
 links_mubashir = "video_links_mubashir.txt"
+links_snooker = "video_links_snooker.txt"
 
 if __name__ == "__main__":
     open_and_play_videos(links_talha, "played_talha.txt")
+    open_and_play_videos(links_snooker, "played_snooker.txt")
     open_and_play_videos(links_mubashir, "played_mubashir.txt")
