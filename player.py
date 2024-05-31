@@ -13,7 +13,7 @@ cookiePopup = True  # Set to True if the cookie popup appears
 # Function to save a played video link and duration to a file
 def log_played_video(link, duration, file="played.txt"):
     with open(file, "a") as file:
-        file.write(f"{link} - {duration} seconds\n")
+        file.write(f"{link} - {duration} Minutes\n")
 
 
 def open_and_play_videos(links_file, played_file):
